@@ -29,7 +29,7 @@ Public Class Form1
                 Me.Controls.Add(grid(x, y))
             Next
         Next
-        numberOfBomb = 10
+        numberOfBomb = (size * size) / 4
         placeBombs(size)
     End Sub
 
@@ -42,7 +42,36 @@ Public Class Form1
                 rndX = generator.Next(0, size)
                 rndY = generator.Next(0, size)
             End While
-            grid(rndX, rndY).Text = "O"
+            grid(rndX, rndY).Tag = "O"
         Next
+    End Sub
+
+    Function checkUP(x As Integer, y As Integer)
+        If grid(x, y - 1).Tag = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Sub checkDown(x As Integer, y As Integer)
+
+    End Sub
+    Sub checkLeft(x As Integer, y As Integer)
+
+    End Sub
+    Sub checkRight(x As Integer, y As Integer)
+
+    End Sub
+    Sub checkUPRight(x As Integer, y As Integer)
+
+    End Sub
+    Sub checkUPLeft(x As Integer, y As Integer)
+
+    End Sub
+    Sub checkDownLeft(x As Integer, y As Integer)
+
+    End Sub
+    Sub checkDownRight(x As Integer, y As Integer)
+
     End Sub
 End Class
