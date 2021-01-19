@@ -1,0 +1,48 @@
+Public Class Form1
+    Dim gridHeight As Integer
+    Dim grid(25, 25) As Button
+    Dim numberOfBomb As Integer
+    Dim generator As New Random
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If IsNumeric(tbSize.Text) Then
+            If tbSize.Text > 1 And tbSize.Text < 26 Then
+                makeGrid(tbSize.Text)
+            Else
+                MsgBox("Please pick a number between 2 and 26")
+            End If
+        Else
+            MsgBox("Please pick a number between 2 and 26")
+        End If
+    End Sub
+
+    Sub makeGrid(size As Integer)
+        For x = 0 To size - 1
+            For y = 0 To size - 1
+                grid(x, y) = New Button
+                With grid(x, y)
+                    .Height = 30
+                    .Width = 30
+                    .Left = 50 + x * 31
+                    .Top = 50 + y * 31
+                End With
+                Me.Controls.Add(grid(x, y))
+            Next
+        Next
+        numberOfBomb = 10
+        placeBombs(size)
+    End Sub
+
+    Sub placeBombs(size As Integer)
+        Dim rndX As Integer = generator.Next(0, size)
+        Dim rndY As Integer = generator.Next(0, size)
+
+        For i = 0 To numberOfBomb - 1
+            While grid(rndX, rndY).Text = "O"
+                rndX = generator.Next(0, size)
+                rndY = generator.Next(0, size)
+            End While
+            grid(rndX, rndY).Text = "O"
+        Next
+    End Sub
+End Class
