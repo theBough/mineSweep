@@ -1,0 +1,84 @@
+Public Class Form1
+    Dim grid(100, 100) As Button
+    Dim generator As New Random
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        makeGrid(tbSize.Text)
+    End Sub
+
+    Sub makeGrid(size As Integer)
+        For x = 0 To size - 1
+            For y = 0 To size - 1
+                grid(x, y) = New Button
+                With grid(x, y)
+                    .Height = 20
+                    .Width = 20
+                    .Left = 100 + x * 20
+                    .Top = 100 + y * 20
+                End With
+                Me.Controls.Add(grid(x, y))
+            Next
+        Next
+        plantMines((size * size) / 5, size)
+    End Sub
+    Sub plantMines(numberOfMines As Integer, size As Integer)
+        Dim rX As Integer = generator.Next(0, size)
+        Dim rY As Integer = generator.Next(0, size)
+        For i = 0 To numberOfMines
+            While grid(rX, rY).Text = "O"
+                rX = generator.Next(0, size)
+                rY = generator.Next(0, size)
+            End While
+            grid(rX, rY).Text = "O"
+        Next
+    End Sub
+
+    Function checkLeft(x As Integer, y As Integer)
+        If (grid(x - 1, y).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkRight(x As Integer, y As Integer)
+        If (grid(x + 1, y).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkUP(x As Integer, y As Integer)
+        If (grid(x, y - 1).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkDown(x As Integer, y As Integer)
+        If (grid(x, y + 1).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkUpLeft(x As Integer, y As Integer)
+        If (grid(x - 1, y - 1).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkUpRight(x As Integer, y As Integer)
+        If (grid(x + 1, y - 1).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkDownLeft(x As Integer, y As Integer)
+        If (grid(x - 1, y + 1).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+    Function checkDownRight(x As Integer, y As Integer)
+        If (grid(x + 1, y + 1).Text = "O") Then
+            Return True
+        End If
+        Return False
+    End Function
+
+End Class
