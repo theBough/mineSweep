@@ -40,9 +40,66 @@ Public Class Form1
                 End If
             Next
         Next
+
+        checkCorners(size)
     End Sub
 
 #Region "check around Functions"
+    Function checkCorners(size As Integer)
+        Dim count As Integer = 0
+        If grid(0, 0).Text <> "O" Then
+            If checkRight(0, 0) Then
+                count += 1
+            End If
+            If checkDown(0, 0) Then
+                count += 1
+            End If
+            If checkDownRight(0, 0) Then
+                count += 1
+            End If
+            grid(0, 0).Text = count
+            count = 0
+        End If
+        If grid(size - 1, 0).Text <> "O" Then
+            If checkLeft(size - 1, 0) Then
+                count += 1
+            End If
+            If checkDown(size - 1, 0) Then
+                count += 1
+            End If
+            If checkDownLeft(size - 1, 0) Then
+                count += 1
+            End If
+            grid(size - 1, 0).Text = count
+            count = 0
+        End If
+        If grid(0, size - 1).Text <> "O" Then
+            If checkRight(0, size - 1) Then
+                count += 1
+            End If
+            If checkUP(0, size - 1) Then
+                count += 1
+            End If
+            If checkUpRight(0, size - 1) Then
+                count += 1
+            End If
+            grid(0, size - 1).Text = count
+            count = 0
+        End If
+        If grid(size - 1, size - 1).Text <> "O" Then
+            If checkLeft(size - 1, size - 1) Then
+                count += 1
+            End If
+            If checkUP(size - 1, size - 1) Then
+                count += 1
+            End If
+            If checkUpLeft(size - 1, size - 1) Then
+                count += 1
+            End If
+            grid(size - 1, size - 1).Text = count
+            count = 0
+        End If
+    End Function
     Function checkAround(x As Integer, y As Integer)
         Dim count As Integer = 0
         If checkLeft(x, y) Then
