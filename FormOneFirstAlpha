@@ -30,7 +30,47 @@ Public Class Form1
             End While
             grid(rX, rY).Text = "O"
         Next
+        doTheCount(size)
     End Sub
+    Sub doTheCount(size As Integer)
+        For x = 1 To size - 2
+            For y = 1 To size - 2
+                If grid(x, y).Text <> "O" Then
+                    grid(x, y).Text = checkAround(x, y)
+                End If
+            Next
+        Next
+    End Sub
+
+#Region "check around Functions"
+    Function checkAround(x As Integer, y As Integer)
+        Dim count As Integer = 0
+        If checkLeft(x, y) Then
+            count += 1
+        End If
+        If checkRight(x, y) Then
+            count += 1
+        End If
+        If checkUP(x, y) Then
+            count += 1
+        End If
+        If checkDown(x, y) Then
+            count += 1
+        End If
+        If checkDownLeft(x, y) Then
+            count += 1
+        End If
+        If checkDownRight(x, y) Then
+            count += 1
+        End If
+        If checkUpRight(x, y) Then
+            count += 1
+        End If
+        If checkUpLeft(x, y) Then
+            count += 1
+        End If
+        Return count
+    End Function
 
     Function checkLeft(x As Integer, y As Integer)
         If (grid(x - 1, y).Text = "O") Then
@@ -80,5 +120,6 @@ Public Class Form1
         End If
         Return False
     End Function
+#End Region
 
 End Class
