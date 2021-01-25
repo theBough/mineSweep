@@ -46,7 +46,34 @@ Public Class Form1
         Next
     End Sub
 #Region "Check All Around"
-
+    Function checkAllAround(x As Integer, y As Integer)
+        Dim count As Integer = 0
+        If checkUP(x, y) Then
+            count += 1
+        End If
+        If checkDown(x, y) Then
+            count += 1
+        End If
+        If checkLeft(x, y) Then
+            count += 1
+        End If
+        If checkRight(x, y) Then
+            count += 1
+        End If
+        If checkUPLeft(x, y) Then
+            count += 1
+        End If
+        If checkUPRight(x, y) Then
+            count += 1
+        End If
+        If checkDownLeft(x, y) Then
+            count += 1
+        End If
+        If checkDownRight(x, y) Then
+            count += 1
+        End If
+        Return count
+    End Function
 
     Function checkUP(x As Integer, y As Integer)
         If grid(x, y - 1).Text = "O" Then
