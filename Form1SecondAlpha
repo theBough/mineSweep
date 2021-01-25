@@ -42,36 +42,71 @@ Public Class Form1
                 rndX = generator.Next(0, size)
                 rndY = generator.Next(0, size)
             End While
-            grid(rndX, rndY).Tag = "O"
+            grid(rndX, rndY).Text = "O"
         Next
     End Sub
+#Region "Check All Around"
+
 
     Function checkUP(x As Integer, y As Integer)
-        If grid(x, y - 1).Tag = "O" Then
+        If grid(x, y - 1).Text = "O" Then
             Return True
         Else
             Return False
         End If
     End Function
-    Sub checkDown(x As Integer, y As Integer)
 
-    End Sub
-    Sub checkLeft(x As Integer, y As Integer)
 
-    End Sub
-    Sub checkRight(x As Integer, y As Integer)
+    Function checkDown(x As Integer, y As Integer)
+        If grid(x, y + 1).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function checkLeft(x As Integer, y As Integer)
+        If grid(x - 1, y).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function checkRight(x As Integer, y As Integer)
+        If grid(x + 1, y).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function checkUPRight(x As Integer, y As Integer)
+        If grid(x + 1, y - 1).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function checkUPLeft(x As Integer, y As Integer)
+        If grid(x - 1, y - 1).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function checkDownLeft(x As Integer, y As Integer)
+        If grid(x - 1, y + 1).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function checkDownRight(x As Integer, y As Integer)
+        If grid(x + 1, y + 1).Text = "O" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+#End Region
 
-    End Sub
-    Sub checkUPRight(x As Integer, y As Integer)
-
-    End Sub
-    Sub checkUPLeft(x As Integer, y As Integer)
-
-    End Sub
-    Sub checkDownLeft(x As Integer, y As Integer)
-
-    End Sub
-    Sub checkDownRight(x As Integer, y As Integer)
-
-    End Sub
+   
 End Class
