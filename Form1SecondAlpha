@@ -44,6 +44,16 @@ Public Class Form1
             End While
             grid(rndX, rndY).Text = "O"
         Next
+        doTheCount(size)
+    End Sub
+    Sub doTheCount(size As Integer)
+        For x = 1 To size - 2
+            For y = 1 To size - 2
+                If grid(x, y).Text <> "O" Then
+                    grid(x, y).Text = checkAllAround(x, y)
+                End If
+            Next
+        Next
     End Sub
 #Region "Check All Around"
     Function checkAllAround(x As Integer, y As Integer)
