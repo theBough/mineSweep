@@ -1,10 +1,11 @@
 Public Class Form1
     Dim grid(100, 100) As Button
     Dim generator As New Random
+    Dim trueSize As Integer = 0
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        trueSize = tbSize.Text
         makeGrid(tbSize.Text)
     End Sub
-
     Sub makeGrid(size As Integer)
         For x = 0 To size - 1
             For y = 0 To size - 1
@@ -33,73 +34,17 @@ Public Class Form1
         doTheCount(size)
     End Sub
     Sub doTheCount(size As Integer)
-        For x = 1 To size - 2
-            For y = 1 To size - 2
+        For x = 0 To size - 1
+            For y = 0 To size - 1
                 If grid(x, y).Text <> "O" Then
                     grid(x, y).Text = checkAround(x, y)
                 End If
             Next
         Next
-
-        checkCorners(size)
     End Sub
 
 #Region "check around Functions"
-    Function checkCorners(size As Integer)
-        Dim count As Integer = 0
-        If grid(0, 0).Text <> "O" Then
-            If checkRight(0, 0) Then
-                count += 1
-            End If
-            If checkDown(0, 0) Then
-                count += 1
-            End If
-            If checkDownRight(0, 0) Then
-                count += 1
-            End If
-            grid(0, 0).Text = count
-            count = 0
-        End If
-        If grid(size - 1, 0).Text <> "O" Then
-            If checkLeft(size - 1, 0) Then
-                count += 1
-            End If
-            If checkDown(size - 1, 0) Then
-                count += 1
-            End If
-            If checkDownLeft(size - 1, 0) Then
-                count += 1
-            End If
-            grid(size - 1, 0).Text = count
-            count = 0
-        End If
-        If grid(0, size - 1).Text <> "O" Then
-            If checkRight(0, size - 1) Then
-                count += 1
-            End If
-            If checkUP(0, size - 1) Then
-                count += 1
-            End If
-            If checkUpRight(0, size - 1) Then
-                count += 1
-            End If
-            grid(0, size - 1).Text = count
-            count = 0
-        End If
-        If grid(size - 1, size - 1).Text <> "O" Then
-            If checkLeft(size - 1, size - 1) Then
-                count += 1
-            End If
-            If checkUP(size - 1, size - 1) Then
-                count += 1
-            End If
-            If checkUpLeft(size - 1, size - 1) Then
-                count += 1
-            End If
-            grid(size - 1, size - 1).Text = count
-            count = 0
-        End If
-    End Function
+    
     Function checkAround(x As Integer, y As Integer)
         Dim count As Integer = 0
         If checkLeft(x, y) Then
@@ -130,53 +75,71 @@ Public Class Form1
     End Function
 
     Function checkLeft(x As Integer, y As Integer)
-        If (grid(x - 1, y).Text = "O") Then
-            Return True
+        If x > 0 Then
+            If (grid(x - 1, y).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
     Function checkRight(x As Integer, y As Integer)
-        If (grid(x + 1, y).Text = "O") Then
-            Return True
+        If x < trueSize - 1 Then
+            If (grid(x + 1, y).Text = "O") Then
+                Return True
+            End If
         End If
+        
         Return False
     End Function
     Function checkUP(x As Integer, y As Integer)
-        If (grid(x, y - 1).Text = "O") Then
-            Return True
+        If y > 0 Then
+            If (grid(x, y - 1).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
     Function checkDown(x As Integer, y As Integer)
-        If (grid(x, y + 1).Text = "O") Then
-            Return True
+        If y < trueSize - 1 Then
+            If (grid(x, y + 1).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
     Function checkUpLeft(x As Integer, y As Integer)
-        If (grid(x - 1, y - 1).Text = "O") Then
-            Return True
+        If x > 0 And y > 0 Then
+            If (grid(x - 1, y - 1).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
     Function checkUpRight(x As Integer, y As Integer)
-        If (grid(x + 1, y - 1).Text = "O") Then
-            Return True
+        If x < trueSize - 1 And y > 0 Then
+            If (grid(x + 1, y - 1).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
     Function checkDownLeft(x As Integer, y As Integer)
-        If (grid(x - 1, y + 1).Text = "O") Then
-            Return True
+        If x > 0 And y < trueSize - 1 Then
+            If (grid(x - 1, y + 1).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
     Function checkDownRight(x As Integer, y As Integer)
-        If (grid(x + 1, y + 1).Text = "O") Then
-            Return True
+        If x < trueSize - 1 And y < trueSize - 1 Then
+            If (grid(x + 1, y + 1).Text = "O") Then
+                Return True
+            End If
         End If
         Return False
     End Function
 #End Region
 
+   
 End Class
