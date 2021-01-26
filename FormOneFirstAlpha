@@ -11,15 +11,21 @@ Public Class Form1
             For y = 0 To size - 1
                 grid(x, y) = New Button
                 With grid(x, y)
-                    .Height = 20
-                    .Width = 20
-                    .Left = 100 + x * 20
-                    .Top = 100 + y * 20
+                    .Height = 40
+                    .Width = 40
+                    .Left = 100 + x * 40
+                    .Top = 100 + y * 40
+                    .BackColor = Color.Black
+                    .ForeColor = Color.Black
                 End With
                 Me.Controls.Add(grid(x, y))
+                AddHandler grid(x, y).Click, AddressOf clickEvents
             Next
         Next
         plantMines((size * size) / 5, size)
+    End Sub
+    Sub clickEvents(sender As Object, e As EventArgs)
+        sender.backcolor = Color.White
     End Sub
     Sub plantMines(numberOfMines As Integer, size As Integer)
         Dim rX As Integer = generator.Next(0, size)
