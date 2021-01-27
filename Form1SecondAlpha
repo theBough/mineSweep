@@ -3,10 +3,12 @@ Public Class Form1
     Dim grid(25, 25) As Button
     Dim numberOfBomb As Integer
     Dim generator As New Random
+    Dim trueSize As Integer
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If IsNumeric(tbSize.Text) Then
             If tbSize.Text > 1 And tbSize.Text < 26 Then
+                trueSize = Val(tbSize.Text)
                 makeGrid(tbSize.Text)
             Else
                 MsgBox("Please pick a number between 2 and 26")
@@ -47,8 +49,8 @@ Public Class Form1
         doTheCount(size)
     End Sub
     Sub doTheCount(size As Integer)
-        For x = 1 To size - 2
-            For y = 1 To size - 2
+        For x = 0 To size - 1
+            For y = 0 To size - 1
                 If grid(x, y).Text <> "O" Then
                     grid(x, y).Text = checkAllAround(x, y)
                 End If
@@ -86,61 +88,76 @@ Public Class Form1
     End Function
 
     Function checkUP(x As Integer, y As Integer)
-        If grid(x, y - 1).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If y > 0 Then
+            If grid(x, y - 1).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
-
-
     Function checkDown(x As Integer, y As Integer)
-        If grid(x, y + 1).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If y < trueSize - 1 Then
+            If grid(x, y + 1).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
     Function checkLeft(x As Integer, y As Integer)
-        If grid(x - 1, y).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If x > 0 Then
+            If grid(x - 1, y).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
+
     End Function
     Function checkRight(x As Integer, y As Integer)
-        If grid(x + 1, y).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If x < trueSize - 1 Then
+            If grid(x + 1, y).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
     Function checkUPRight(x As Integer, y As Integer)
-        If grid(x + 1, y - 1).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If x < trueSize - 1 And y > 0 Then
+            If grid(x + 1, y - 1).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
     Function checkUPLeft(x As Integer, y As Integer)
-        If grid(x - 1, y - 1).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If x > 0 And y > 0 Then
+            If grid(x - 1, y - 1).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
     Function checkDownLeft(x As Integer, y As Integer)
-        If grid(x - 1, y + 1).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If x > 0 And y < trueSize - 1 Then
+            If grid(x - 1, y + 1).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
     Function checkDownRight(x As Integer, y As Integer)
-        If grid(x + 1, y + 1).Text = "O" Then
-            Return True
-        Else
-            Return False
+        If x < trueSize - 1 And y < trueSize - 1 Then
+            If grid(x + 1, y + 1).Text = "O" Then
+                Return True
+            Else
+                Return False
+            End If
         End If
     End Function
 #End Region
