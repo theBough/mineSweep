@@ -21,13 +21,18 @@ Public Class Form1
                     .Name = x & y
                 End With
                 Me.Controls.Add(grid(x, y))
-                AddHandler grid(x, y).Click, AddressOf clickEvents
+                ' AddHandler grid(x, y).Click, AddressOf clickEvents
+                AddHandler grid(x, y).MouseClick, AddressOf clickEvents
             Next
         Next
         plantMines((size * size) / 5, size)
     End Sub
-    Sub clickEvents(sender As Object, e As EventArgs)
-        sender.backcolor = Color.White
+    Sub clickEvents(sender As Object, e As MouseEventArgs)
+        If e.Clicks = Windows.Forms.MouseButtons.Right Then
+            Me.Text = "hello"
+            sender.backcolor = Color.White
+        End If
+
         Dim x As Integer = sender.name.substring(0, 1)
         Dim y As Integer = sender.name.substring(1, 1)
         Select Case grid(x, y).Text
@@ -172,5 +177,6 @@ Public Class Form1
     End Function
 #End Region
 
+   
    
 End Class
