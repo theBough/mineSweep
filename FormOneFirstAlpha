@@ -26,18 +26,50 @@ Public Class Form1
                 AddHandler grid(x, y).MouseUp, AddressOf clickEvents
             Next
         Next
-        plantMines((size * size) / 5, size)
+        plantMines((size * size) / 10, size)
     End Sub
     Sub clickEvents(sender As Object, e As MouseEventArgs)
         If e.Button = Windows.Forms.MouseButtons.Right Then
-            sender.backgroundImage = Image.FromFile(CurDir() & "\flag.png")
-            sender.text = ""
+            If sender.tag = "flag" Then
+                sender.backgroundImage = Nothing
+                sender.tag = ""
+            Else
+                sender.backgroundImage = Image.FromFile(CurDir() & "\flag.png")
+                sender.text = ""
+                sender.tag = "flag"
+            End If
+            
         Else
             Dim x As Integer = sender.name.substring(0, 1)
             Dim y As Integer = sender.name.substring(1, 1)
+            sender.backcolor = Color.White
             Select Case grid(x, y).Text
                 Case "0"
                     grid(x, y).Text = ""
+                    For i = x To 0 Step -1
+                        For j = y To 0 Step -1
+                            check_Down(i, j)
+                            check_DownLeft(i, j)
+                            check_DownRight(i, j)
+                            check_Left(i, j)
+                            check_UpLeft(i, j)
+                            check_UP(i, j)
+                            check_UpRight(i, j)
+                            check_Right(i, j)
+                        Next
+                    Next
+                    For i = x To trueSize - 1
+                        For j = y To trueSize - 1
+                            check_Down(i, j)
+                            check_DownLeft(i, j)
+                            check_DownRight(i, j)
+                            check_Left(i, j)
+                            check_UpLeft(i, j)
+                            check_UP(i, j)
+                            check_UpRight(i, j)
+                            check_Right(i, j)
+                        Next
+                    Next
                 Case "1"
                     grid(x, y).ForeColor = Color.Blue
                 Case "2"
@@ -178,6 +210,96 @@ Public Class Form1
         End If
         Return False
     End Function
+
+    Sub check_Left(x As Integer, y As Integer)
+        If x > 0 Then
+            If (grid(x - 1, y).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+    Sub check_Right(x As Integer, y As Integer)
+        If x < trueSize - 1 Then
+            If (grid(x + 1, y).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+
+    End Sub
+    Sub check_UP(x As Integer, y As Integer)
+        If y > 0 Then
+            If (grid(x, y - 1).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+    Sub check_Down(x As Integer, y As Integer)
+        If y < trueSize - 1 Then
+            If (grid(x, y + 1).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+    Sub check_UpLeft(x As Integer, y As Integer)
+        If x > 0 And y > 0 Then
+            If (grid(x - 1, y - 1).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+    Sub check_UpRight(x As Integer, y As Integer)
+        If x < trueSize - 1 And y > 0 Then
+            If (grid(x + 1, y - 1).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+    Sub check_DownLeft(x As Integer, y As Integer)
+        If x > 0 And y < trueSize - 1 Then
+            If (grid(x - 1, y + 1).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+    Sub check_DownRight(x As Integer, y As Integer)
+        If x < trueSize - 1 And y < trueSize - 1 Then
+            If (grid(x + 1, y + 1).BackColor = Color.White And grid(x, y).Text <> "O") Then
+                grid(x, y).BackColor = Color.White
+                If grid(x, y).Text = "0" Then
+                    grid(x, y).Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
 #End Region
 
    
