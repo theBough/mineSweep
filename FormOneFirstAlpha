@@ -15,46 +15,49 @@ Public Class Form1
                     .Width = 40
                     .Left = 100 + x * 40
                     .Top = 100 + y * 40
-                    .BackColor = Color.Black
-                    .ForeColor = Color.Black
+                    .BackColor = Color.SteelBlue
+                    .ForeColor = Color.SteelBlue
                     .Font = New Font("Rockwell", 18)
                     .Name = x & y
+                    .BackgroundImageLayout = ImageLayout.Stretch
                 End With
                 Me.Controls.Add(grid(x, y))
                 ' AddHandler grid(x, y).Click, AddressOf clickEvents
-                AddHandler grid(x, y).MouseClick, AddressOf clickEvents
+                AddHandler grid(x, y).MouseUp, AddressOf clickEvents
             Next
         Next
         plantMines((size * size) / 5, size)
     End Sub
     Sub clickEvents(sender As Object, e As MouseEventArgs)
-        If e.Clicks = Windows.Forms.MouseButtons.Right Then
-            Me.Text = "hello"
-            sender.backcolor = Color.White
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            sender.backgroundImage = Image.FromFile(CurDir() & "\flag.png")
+            sender.text = ""
+        Else
+            Dim x As Integer = sender.name.substring(0, 1)
+            Dim y As Integer = sender.name.substring(1, 1)
+            Select Case grid(x, y).Text
+                Case "0"
+                    grid(x, y).Text = ""
+                Case "1"
+                    grid(x, y).ForeColor = Color.Blue
+                Case "2"
+                    grid(x, y).ForeColor = Color.Green
+                Case "3"
+                    grid(x, y).ForeColor = Color.Red
+                Case "4"
+                    grid(x, y).ForeColor = Color.Purple
+                Case "5"
+                    grid(x, y).ForeColor = Color.Orange
+                Case "6"
+                    grid(x, y).ForeColor = Color.Cyan
+                Case "7"
+                    grid(x, y).ForeColor = Color.Black
+                Case "8"
+                    grid(x, y).ForeColor = Color.Gray
+            End Select
         End If
 
-        Dim x As Integer = sender.name.substring(0, 1)
-        Dim y As Integer = sender.name.substring(1, 1)
-        Select Case grid(x, y).Text
-            Case "0"
-                grid(x, y).Text = ""
-            Case "1"
-                grid(x, y).ForeColor = Color.Blue
-            Case "2"
-                grid(x, y).ForeColor = Color.Green
-            Case "3"
-                grid(x, y).ForeColor = Color.Red
-            Case "4"
-                grid(x, y).ForeColor = Color.Purple
-            Case "5"
-                grid(x, y).ForeColor = Color.Orange
-            Case "6"
-                grid(x, y).ForeColor = Color.Cyan
-            Case "7"
-                grid(x, y).ForeColor = Color.Black
-            Case "8"
-                grid(x, y).ForeColor = Color.Gray
-        End Select
+       
     End Sub
     Sub plantMines(numberOfMines As Integer, size As Integer)
         Dim rX As Integer = generator.Next(0, size)
